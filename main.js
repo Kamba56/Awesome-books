@@ -4,21 +4,19 @@ const form = document.querySelector('#add-form');
 const bookSection = document.querySelector('.book-section');
 
 // object class
-class BooksTemplate{
+class BooksTemplate {
   books = [];
-  constructor() {
-
-  };
 
   check() {
-    if(localStorage.getItem('books')) {
-      console.log("yesss");
-      this.books = JSON.parse(localStorage.getItem('books'));
+    if (localStorage.getItem('books')) {
+      this.books = JSON.parse(localStorage.getItem("books"));
     }
   }
+
   // methods
   generateBooks = ({ author, title, id }) => {
     const bookContainer = document.createElement('div');
+
     bookContainer.classList.add('book-div');
     bookContainer.innerHTML = `
     <p>"${title}" by ${author}</p>
@@ -37,8 +35,7 @@ class BooksTemplate{
     this.books.push(book);
     localStorage.setItem('books', JSON.stringify(this.books));
     this.generateBooks(book);
-    console.log(this.books);
-  };
+  }
 
   removeBook(removedBotton) {
     const removedBook = removedBotton.parentElement;
