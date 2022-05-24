@@ -1,49 +1,51 @@
 const title = document.querySelector('#title');
 const author = document.querySelector('#author');
-const addButton = document.querySelector('#add-button');
+const form = document.querySelector('#add-form');
 const bookSection = document.querySelector('.book-section');
-let removeButton = [];
 
-let books = [];
+let books = JSON.parse(localStorage.getItem('books')) || [];
 
-function addBook() {
-  let book = {
-    title: title.value,
-    author: author.value,
-    id: Date.now()
-  };
-  books.push(book);
-  generateBooks(book.title, book.author, book.id);
-  button = document.getElementById(book.id.toString());
-  removeButton.push(button);
-  console.log(removeButton);
-}
-
-addButton.addEventListener('click', () => {
-  addBook();
-  clearInputs();
-});
-
-// generate books
-const generateBooks = (title, author, id) => {
+// generate books dynamically
+const generateBooks = ({author, title, id}) => {
   const bookContainer = document.createElement('div');
   bookContainer.innerHTML = `
   <p>${title}</p>
   <p>${author}</p>
-  <button class="remove-button" type="button" id="${id}" onclick="removeBooks(${id})">Remove</button><br>
+  <button id="${id}" class="remove-button" type="button")">Remove</button><br>
   <hr>  
   `;
   bookSection.appendChild(bookContainer);
 }
 
-const clearInputs = () => {
-  title.value = "";
-  author.value = "";
+// Add book
+function addBook() {
+  let book = {
+    author: author.value,
+    title: title.value,
+    id: Date.now()
+  }
+  books.push(book);
+  localStorage.setItem('books', JSON.stringify(books));
+  generateBooks(book);
 }
 
-// remove books
-const removeBooks = (id) => {
-    let filterBook = books.filter(book => book.id === id);
-    books.pop(filterBook[0]);
-    console.log(books);
-}
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  if(title.value && author.value) {
+    addBook();
+    form.reset();
+  }
+});
+
+bookSection.addEventListener('click', (e) => {
+  if(e.target.classList.contains('remove-button')){
+    let removedBotton = e.target;
+    let removedBook = removedBotton.parentElement;
+    let removedBookarr = books.filter(book => book.id == removedBotton.id);
+    books.splice(books.indexOf(removedBookarr[0]), 1);
+    localStorage.setItem('books', JSON.stringify(books));
+    removedBook.remove();
+  }
+});
+
+books.forEach(generateBooks);
