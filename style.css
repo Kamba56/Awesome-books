@@ -1,3 +1,60 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-family: sans-serif;
+}
+
+h1 {
+  text-align: center;
+  font-size: 50px;
+  padding: 20px;
+}
+
+.book-section {
+  border: 5px solid #000;
+  border-radius: 8px;
+  margin: 20px;
+}
+
+.book-div {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  font-size: 24px;
+}
+
+.book-div:nth-child(odd) {
+  background: #dbdbdb;
+}
+
+.book-div button {
+  padding: 8px 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#add-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px;
+  margin: 30px auto;
+}
+
+#add-form input {
+  height: 50px;
+  padding-left: 15px;
+  border: 2px solid #000;
+  border-radius: 4px;
+}
+
+#add-form button {
+  width: fit-content;
+  padding: 8px 30px;
+  align-self: flex-end;
+  cursor: pointer;
 }

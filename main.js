@@ -3,36 +3,54 @@ const author = document.querySelector('#author');
 const form = document.querySelector('#add-form');
 const bookSection = document.querySelector('.book-section');
 
-const books = JSON.parse(localStorage.getItem('books')) || [];
+// object class
+class BooksTemplate {
+  books = [];
 
-// generate books dynamically
-const generateBooks = ({ author, title, id }) => {
-  const bookContainer = document.createElement('div');
-  bookContainer.innerHTML = `
-  <p>${title}</p>
-  <p>${author}</p>
-  <button id="${id}" class="remove-button" type="button")">Remove</button><br>
-  <hr>  
-  `;
-  bookSection.appendChild(bookContainer);
-};
+  check() {
+    if (localStorage.getItem('books')) {
+      this.books = JSON.parse(localStorage.getItem('books'));
+    }
+  }
 
-// Add book
-function addBook() {
-  const book = {
-    author: author.value,
-    title: title.value,
-    id: Date.now(),
+  // methods
+  generateBooks = ({ author, title, id }) => {
+    const bookContainer = document.createElement('div');
+
+    bookContainer.classList.add('book-div');
+    bookContainer.innerHTML = `
+    <p>"${title}" by ${author}</p>
+    <button id="${id}" class="remove-button" type="button")">Remove</button>  
+    `;
+    bookSection.appendChild(bookContainer);
   };
-  books.push(book);
-  localStorage.setItem('books', JSON.stringify(books));
-  generateBooks(book);
+
+  addBook() {
+    const book = {
+      author: author.value,
+      title: title.value,
+      id: Date.now(),
+    };
+    this.check();
+    this.books.push(book);
+    localStorage.setItem('books', JSON.stringify(this.books));
+    this.generateBooks(book);
+  }
+
+  removeBook(removedBotton) {
+    const removedBook = removedBotton.parentElement;
+    const removedBookarr = this.books.filter((book) => book.id === Number(removedBotton.id));
+    this.books.splice(this.books.indexOf(removedBookarr[0]), 1);
+    localStorage.setItem('books', JSON.stringify(this.books));
+    removedBook.remove();
+  }
 }
 
+const bookObj = new BooksTemplate();
 form.addEventListener('submit', (e) => {
   e.preventDefault();
   if (title.value && author.value) {
-    addBook();
+    bookObj.addBook();
     form.reset();
   }
 });
@@ -40,12 +58,9 @@ form.addEventListener('submit', (e) => {
 bookSection.addEventListener('click', (e) => {
   if (e.target.classList.contains('remove-button')) {
     const removedBotton = e.target;
-    const removedBook = removedBotton.parentElement;
-    const removedBookarr = books.filter((book) => book.id === Number(removedBotton.id));
-    books.splice(books.indexOf(removedBookarr[0]), 1);
-    localStorage.setItem('books', JSON.stringify(books));
-    removedBook.remove();
+    bookObj.removeBook(removedBotton);
   }
 });
 
-books.forEach(generateBooks);
+bookObj.check();
+bookObj.books.forEach(bookObj.generateBooks);
