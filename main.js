@@ -9,7 +9,7 @@ class BooksTemplate {
 
   check() {
     if (localStorage.getItem('books')) {
-      this.books = JSON.parse(localStorage.getItem("books"));
+      this.books = JSON.parse(localStorage.getItem('books'));
     }
   }
 
