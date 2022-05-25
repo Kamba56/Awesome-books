@@ -9,22 +9,58 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Awesome Books</h1>
+  <header class="border">
+    <a href="#" id="logo">Awesome Books</a>
+    <nav>
+      <ul>
+        <li>
+          <a id="book-link" href="#">Book list</a>
+        </li>
+        <li>
+          <a id="form-link" href="#">Add new</a>
+        </li>
+        <li>
+          <a id="contact-link" href="#">Contact</a>
+        </li>
+      </ul>
+    </nav>
   </header>
+  <div id="todays-date">March 14</div>
+
   <main>
-    <section class="book-section">
-      
+    <section id="book-list">
+      <h1>All Awesome Books</h1>
+      <div class="book-section border">
+
+      </div>
+      <p id="empty-list">No books available. Click on Add book link to add new book</p>
     </section>
 
-    <section>
+    <section id="form-section">
+      <h1>Add a new book</h1>
       <form action="#" id="add-form">
         <input type="text" name="title" placeholder="Title" id="title"><br><br>
         <input type="text" name="author" placeholder="Author" id="author"><br><br>
         <button type="submit" id="add-button">Add</button>
       </form>
     </section>
+
+    <section id="contact">
+      <h1>Contact information</h1>
+      <div>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi velit obcaecati saepe doloremque, minus adipisci assumenda.</p>
+        <ul>
+          <li>our email: abcd@gmail.com</li>
+          <li>Our phone number: +23412345678</li>
+          <li>Our address: abuja, Nigeria</li>
+        </ul>
+      </div>
+    </section>
   </main>
+
+  <footer class="border">
+    <p>Copyright Husseini and Toma 2022</p>
+  </footer>
   
   <script src="main.js"></script>
 </body>
