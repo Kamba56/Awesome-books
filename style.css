@@ -64,7 +64,6 @@ h1 {
   margin: 20px;
 }
 
-
 /* Navigation styling */
 header {
   display: flex;
@@ -111,8 +110,23 @@ nav ul li a {
   margin: 30px;
 }
 
+#form-section,
+#contact {
+  display: none;
+}
+
+#empty-list {
+  text-align: center;
+  display: none;
+  font-size: 18px;
+  font-weight: 400;
+}
+
 /* footer styling */
 footer {
+  position: absolute;
+  width: calc(100% - 40px);
+  bottom: 0;
   text-align: center;
   padding: 16px;
 }

@@ -2,6 +2,14 @@ const title = document.querySelector('#title');
 const author = document.querySelector('#author');
 const form = document.querySelector('#add-form');
 const bookSection = document.querySelector('.book-section');
+const bookListSection = document.querySelector('#book-list');
+const formSection = document.querySelector('#form-section');
+const contactSection = document.querySelector('#contact');
+const formLink = document.querySelector('#form-link');
+const bookLink = document.querySelector('#book-link');
+const contactLink = document.querySelector('#contact-link');
+const currentDate = document.querySelector('#todays-date');
+const emptyList = document.querySelector('#empty-list');
 
 // object class
 class BooksTemplate {
@@ -14,7 +22,7 @@ class BooksTemplate {
   }
 
   // methods
-  generateBooks = ({ author, title, id }) => {
+  generateBooks({ author, title, id }) {
     const bookContainer = document.createElement('div');
 
     bookContainer.classList.add('book-div');
@@ -55,12 +63,47 @@ form.addEventListener('submit', (e) => {
   }
 });
 
+const isEmpty = () => {
+  if (bookObj.books.length === 0 ) {
+    emptyList.style.display = 'block';
+  } else {
+    emptyList.style.display = 'none';
+  }
+} 
+
 bookSection.addEventListener('click', (e) => {
   if (e.target.classList.contains('remove-button')) {
     const removedBotton = e.target;
     bookObj.removeBook(removedBotton);
+    isEmpty();
   }
 });
 
 bookObj.check();
 bookObj.books.forEach(bookObj.generateBooks);
+isEmpty();
+
+bookLink.addEventListener('click', (e) => {
+  e.preventDefault();
+  bookListSection.style.display = 'block';
+  formSection.style.display = 'none';
+  contactSection.style.display = 'none';
+  isEmpty();
+});
+
+formLink.addEventListener('click', (e) => {
+  e.preventDefault();
+  bookListSection.style.display = 'none';
+  formSection.style.display = 'block';
+  contactSection.style.display = 'none';
+});
+
+contactLink.addEventListener('click', (e) => {
+  e.preventDefault();
+  bookListSection.style.display = 'none';
+  formSection.style.display = 'none';
+  contactSection.style.display = 'block';
+});
+
+const todaysDate = new Date();
+currentDate.innerHTML = todaysDate;
