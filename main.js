@@ -11,6 +11,16 @@ const contactLink = document.querySelector('#contact-link');
 const currentDate = document.querySelector('#todays-date');
 const emptyList = document.querySelector('#empty-list');
 
+function generateBooks({ author, title, id }) {
+  const bookContainer = document.createElement('div');
+  bookContainer.classList.add('book-div');
+  bookContainer.innerHTML = `
+  <p>"${title}" by ${author}</p>
+  <button id="${id}" class="remove-button" type="button")">Remove</button>  
+  `;
+  bookSection.appendChild(bookContainer);
+}
+
 // object class
 class BooksTemplate {
   books = [];
@@ -22,17 +32,6 @@ class BooksTemplate {
   }
 
   // methods
-  generateBooks({ author, title, id }) {
-    const bookContainer = document.createElement('div');
-
-    bookContainer.classList.add('book-div');
-    bookContainer.innerHTML = `
-    <p>"${title}" by ${author}</p>
-    <button id="${id}" class="remove-button" type="button")">Remove</button>  
-    `;
-    bookSection.appendChild(bookContainer);
-  };
-
   addBook() {
     const book = {
       author: author.value,
@@ -42,7 +41,7 @@ class BooksTemplate {
     this.check();
     this.books.push(book);
     localStorage.setItem('books', JSON.stringify(this.books));
-    this.generateBooks(book);
+    generateBooks(book);
   }
 
   removeBook(removedBotton) {
@@ -64,12 +63,12 @@ form.addEventListener('submit', (e) => {
 });
 
 const isEmpty = () => {
-  if (bookObj.books.length === 0 ) {
+  if (bookObj.books.length === 0) {
     emptyList.style.display = 'block';
   } else {
     emptyList.style.display = 'none';
   }
-} 
+};
 
 bookSection.addEventListener('click', (e) => {
   if (e.target.classList.contains('remove-button')) {
@@ -80,7 +79,7 @@ bookSection.addEventListener('click', (e) => {
 });
 
 bookObj.check();
-bookObj.books.forEach(bookObj.generateBooks);
+bookObj.books.forEach(generateBooks);
 isEmpty();
 
 bookLink.addEventListener('click', (e) => {
