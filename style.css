@@ -91,6 +91,15 @@ nav ul li a {
   display: inline-block;
   padding: 5px 15px;
   border-right: 2px solid #000;
+  transition: color 1s 1ms;
+}
+
+.active {
+  color: blue;
+}
+
+nav ul li a:hover {
+  color: blue;
 }
 
 #todays-date {
