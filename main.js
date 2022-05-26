@@ -88,6 +88,9 @@ bookLink.addEventListener('click', (e) => {
   formSection.style.display = 'none';
   contactSection.style.display = 'none';
   isEmpty();
+  bookLink.classList.add('active');
+  formLink.classList.remove('active');
+  contactLink.classList.remove('active');
 });
 
 formLink.addEventListener('click', (e) => {
@@ -95,6 +98,9 @@ formLink.addEventListener('click', (e) => {
   bookListSection.style.display = 'none';
   formSection.style.display = 'block';
   contactSection.style.display = 'none';
+  formLink.classList.add('active');
+  bookLink.classList.remove('active');
+  contactLink.classList.remove('active');
 });
 
 contactLink.addEventListener('click', (e) => {
@@ -102,7 +108,16 @@ contactLink.addEventListener('click', (e) => {
   bookListSection.style.display = 'none';
   formSection.style.display = 'none';
   contactSection.style.display = 'block';
+  contactLink.classList.add('active');
+  formLink.classList.remove('active');
+  bookLink.classList.remove('active');
 });
 
-const todaysDate = new Date();
-currentDate.innerHTML = todaysDate;
+function setDate() {
+  const todaysDate = new Date();
+  currentDate.innerHTML = todaysDate;
+}
+
+setDate();
+
+setInterval(setDate, 1000);
